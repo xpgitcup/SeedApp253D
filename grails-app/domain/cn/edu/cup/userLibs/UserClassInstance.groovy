@@ -22,16 +22,25 @@ class UserClassInstance {
         ClassLoader parent = getClass().getClassLoader(); 
         GroovyClassLoader loader = new GroovyClassLoader(parent);  
         def libFile = new File(lib.realFileName())
-        println "classInstance ${libFile}"
+        //println "classInstance ${libFile}"
         loader.addURL(libFile.toURL())
         //def clazz = loader.parseClass(name)
         def clazz = loader.loadClass(name)
-        println "classInstance ${clazz}"
+        //println "classInstance ${clazz}"
         return clazz
     }
     
     /*
-     * 创建类的实例
+     * 类的字段
+     * */
+    def classInstanceFields() {
+        def cc = loadClass()
+        def ms = cc.getDeclaredFields()
+        return ms
+    }
+    
+    /*
+     * 类的方法
      * */
     def classInstanceMethods() {
         def cc = loadClass()
